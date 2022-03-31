@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+  db:
+    container_name: example-webapp-structure-db
+    image: mysql:8
+    platform: linux/amd64
+    command: --default-authentication-plugin=mysql_native_password
+    restart: "no"
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: example-webapp-structure
+      MYSQL_ROOT_PASSWORD: example
+
+  db-management-tool:
+    container_name: example-webapp-structure-db-management-tool
+    image: adminer:4.8.1
+    depends_on:
+      - db
+    restart: "no"
+    ports:
+      - 18080:8080
